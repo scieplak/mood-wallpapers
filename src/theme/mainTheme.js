@@ -1,7 +1,8 @@
 const theme = {
   colors: {
     white: '#FFFFFF',
-    mainPurple: '4F23FF',
+    mainPurple: '#4F23FF',
+    textGrey: '#ADADAD',
   },
   fontFamily: {
     primary: `'Red Hat Display', sans-serif`,
