@@ -1,14 +1,14 @@
 import React from 'react';
-import GlobalStyle from 'theme/GlobalStyle';
-import { ThemeProvider } from 'styled-components';
-import theme from 'theme/mainTheme';
+import MainTemplate from 'components/templates/MainTemplate';
 
 function App() {
   return (
-    <>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>HELLO!</ThemeProvider>
-    </>
+    <MainTemplate>
+      <>
+        <GlobalStyle />
+        <ThemeProvider theme={theme}>HELLO!</ThemeProvider>
+      </>
+    </MainTemplate>
   );
 }
 
