@@ -3,24 +3,27 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Button = styled.button`
+  text-decoration: none;
+  text-align: center;
   background-color: ${({ theme }) => theme.colors.white};
   border: none;
-  color: ${({ theme, isSelected }) =>
-    isSelected ? theme.colors.mainPurple : theme.colors.textGrey};
+  color: ${({ theme }) => theme.colors.textGrey};
   width: 120px;
   height: 140px;
   cursor: pointer;
+
+  &.active {
+    color: ${({ theme }) => theme.colors.mainPurple};
+  }
 `;
 
 const StyledText = styled.span`
-  color: ${({ theme, isSelected }) =>
-    isSelected ? theme.colors.mainPurple : theme.colors.textGrey};
   text-transform: uppercase;
   letter-spacing: 1px;
 `;
 
-const NavButton = ({ icon: Icon, text, isSelected }) => (
-  <Button isSelected={isSelected}>
+const NavButton = ({ icon: Icon, text, isSelected, ...props }) => (
+  <Button isSelected={isSelected} {...props}>
     <Icon />
     <StyledText isSelected={isSelected}>{text}</StyledText>
   </Button>

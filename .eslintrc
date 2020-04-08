@@ -12,7 +12,8 @@
       {
         "extensions": [".js"]
       }
-    ]
+    ],
+    "react/jsx-props-no-spreading": 0
   },
   "settings": {
     "import/resolver": {

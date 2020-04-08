@@ -7,15 +7,15 @@ import Favorites from 'views/Favorites';
 
 function App() {
   return (
-    <MainTemplate>
-      <BrowserRouter>
+    <BrowserRouter>
+      <MainTemplate>
         <Switch>
           <Route exact path="/" component={Wallpapers} />
           <Route path="/search" component={Search} />
           <Route path="/favorites" component={Favorites} />
         </Switch>
-      </BrowserRouter>
-    </MainTemplate>
+      </MainTemplate>
+    </BrowserRouter>
   );
 }
 

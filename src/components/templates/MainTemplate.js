@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 import GlobalStyle from 'theme/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import theme from 'theme/mainTheme';
+import Header from 'components/organisms/Header/Header';
 
 function MainTemplate({ children }) {
   return (
-    <>
+    <div>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </>
+      <ThemeProvider theme={theme}>
+        <>
+          <Header />
+          {children}
+        </>
+      </ThemeProvider>
+    </div>
   );
 }
 

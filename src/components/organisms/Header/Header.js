@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 import NavButton from 'components/atoms/NavButton/NavButton';
 import { ImageAlt } from '@styled-icons/boxicons-regular/ImageAlt';
 import { Search } from '@styled-icons/evaicons-solid/Search';
@@ -32,9 +33,15 @@ const Header = () => (
   <StyledHeader>
     <TopBar>Mood Wallpapers</TopBar>
     <StyledNav>
-      <NavButton text="IMAGES" isSelected icon={ImageAlt} />
-      <NavButton text="SEARCH" icon={Search} />
-      <NavButton text="FAVORITES" icon={FavoriteBorder} />
+      <NavButton exact as={NavLink} to="/" text="IMAGES" activeClass="active" icon={ImageAlt} />
+      <NavButton as={NavLink} to="/search" text="SEARCH" activeClass="active" icon={Search} />
+      <NavButton
+        as={NavLink}
+        to="/favorites"
+        text="FAVORITES"
+        activeClass="active"
+        icon={FavoriteBorder}
+      />
     </StyledNav>
   </StyledHeader>
 );
