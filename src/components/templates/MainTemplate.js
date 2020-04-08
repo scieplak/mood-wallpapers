@@ -17,4 +17,4 @@ MainTemplate.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-export default App;
+export default MainTemplate;
