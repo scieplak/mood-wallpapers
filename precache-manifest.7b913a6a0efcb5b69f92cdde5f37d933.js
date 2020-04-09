@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "31f646f6ebff4f36a9ad16f15238b495",
+    "revision": "59da9445babe8df27ea24c3b6177880c",
     "url": "/mood-wallpapers/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mood-wallpapers/static/js/2.da806aac.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "32f4b0f3292bfef0a69c",
-    "url": "/mood-wallpapers/static/js/main.f559c559.chunk.js"
+    "revision": "eb77e5198576c2f3bdd2",
+    "url": "/mood-wallpapers/static/js/main.7b547bea.chunk.js"
   },
   {
     "revision": "88e1fa2d0dfdd380f80b",
