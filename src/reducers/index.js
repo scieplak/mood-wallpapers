@@ -3,12 +3,13 @@ import { FETCH_SUCCESS, FETCH_FAILURE, ADD_FAVORITE, REMOVE_FAVORITE } from 'act
 const initialState = {
   wallpapers: [],
   favorites: JSON.parse(localStorage.getItem('favorites')) || [],
+  currentKeywords: [],
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case FETCH_SUCCESS: {
-      return { ...state, wallpapers: payload.data };
+      return { ...state, wallpapers: payload.data, currentKeywords: payload.data.keywords };
     }
     case FETCH_FAILURE: {
       return state;

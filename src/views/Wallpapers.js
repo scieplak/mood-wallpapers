@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { fetchItems } from 'actions';
 import CardGridTemplate from 'components/templates/CardGridTemplate';
-import { getDayPart, getSeason } from 'utils/helpers';
 
 const Keywords = styled.h1`
   max-width: 1400px;
@@ -12,18 +10,13 @@ const Keywords = styled.h1`
   padding: 0 15px;
 `;
 
-const Wallpapers = ({ wallpapers, fetchWallpapers }) => {
-  const currentDate = new Date();
-  const keywords = [getDayPart(currentDate), getSeason(currentDate), 'nature'];
-
-  useEffect(() => {
-    fetchWallpapers(keywords);
-  }, []);
-
+const Wallpapers = ({ wallpapers }) => {
   return (
     <>
-      <Keywords>Current keywords: {keywords.join(', ')}</Keywords>
-      <CardGridTemplate cards={wallpapers}>hejo</CardGridTemplate>
+      <Keywords>
+        {wallpapers.currentKeywords && `Current keywords: ${wallpapers.currentKeywords}`}
+      </Keywords>
+      <CardGridTemplate cards={wallpapers} />
     </>
   );
 };
@@ -38,7 +31,6 @@ Wallpapers.propTypes = {
       tags: PropTypes.array,
     }),
   ),
-  fetchWallpapers: PropTypes.func.isRequired,
 };
 
 Wallpapers.defaultProps = {
@@ -47,8 +39,4 @@ Wallpapers.defaultProps = {
 
 const mapStateToProps = ({ wallpapers }) => ({ wallpapers });
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchWallpapers: (keywords) => dispatch(fetchItems(keywords)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Wallpapers);
+export default connect(mapStateToProps)(Wallpapers);

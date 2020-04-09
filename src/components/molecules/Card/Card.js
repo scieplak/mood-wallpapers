@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import IcoButton from 'components/atoms/IcoButton/IcoButton';
 import { Heart } from '@styled-icons/boxicons-regular/Heart';
 import { Heart as FilledHeart } from '@styled-icons/boxicons-solid/Heart';
+import { Fullscreen } from '@styled-icons/boxicons-regular/Fullscreen';
 import { connect } from 'react-redux';
 import { addFavorite as addToFavorites, removeFavorite as removeFromFavorites } from 'actions';
 
@@ -22,6 +23,9 @@ const Wrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   position: absolute;
+  display: flex;
+  width: 100px;
+  justify-content: space-around;
   right: 10px;
   top: 10px;
 `;
@@ -48,7 +52,7 @@ const Tags = styled.div`
 `;
 
 const Card = ({ card, favorites, addFavorite, removeFavorite }) => {
-  const { id, imageUrl, autor, tags } = card;
+  const { id, imageUrl, autor, tags, fullsizeUrl } = card;
   const location = useLocation();
   const isFavorite = favorites.some((item) => item.id === id);
 
@@ -57,6 +61,7 @@ const Card = ({ card, favorites, addFavorite, removeFavorite }) => {
       {/* eslint-disable-next-line react/prop-types */}
       {location.pathname === '/favorites' && <Tags>{tags.join(', ')}</Tags>}
       <ButtonWrapper>
+        <IcoButton icon={Fullscreen} onClick={() => window.open(fullsizeUrl, '_blank')} />
         <IcoButton
           icon={isFavorite ? FilledHeart : Heart}
           onClick={() => {

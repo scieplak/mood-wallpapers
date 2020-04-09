@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import GlobalStyle from 'theme/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import theme from 'theme/mainTheme';
 import Header from 'components/organisms/Header/Header';
+import { connect } from 'react-redux';
+import { fetchItems } from 'actions';
+import { getDayPart, getSeason } from 'utils/helpers';
 
-function MainTemplate({ children }) {
+function MainTemplate({ children, fetchWallpapers }) {
+  const currentDate = new Date();
+  const keywords = [getDayPart(currentDate), getSeason(currentDate), 'nature'];
+
+  useEffect(() => {
+    fetchWallpapers(keywords);
+  }, []);
+
   return (
     <div>
       <GlobalStyle />
@@ -21,6 +31,10 @@ function MainTemplate({ children }) {
 
 MainTemplate.propTypes = {
   children: PropTypes.element.isRequired,
+  fetchWallpapers: PropTypes.func.isRequired,
 };
 
-export default MainTemplate;
+const mapDispatchToProps = (dispatch) => ({
+  fetchWallpapers: (keywords) => dispatch(fetchItems(keywords)),
+});
+export default connect(null, mapDispatchToProps)(MainTemplate);
