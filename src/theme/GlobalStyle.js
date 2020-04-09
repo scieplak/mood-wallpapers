@@ -1,23 +1,41 @@
 import { createGlobalStyle } from 'styled-components';
+import RedHatDisplay from 'assets/fonts/red-hat-display.woff';
+import ReemKufi from 'assets/fonts/reem-kufi.woff';
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap');
+
+  @font-face {
+    font-family: 'Red Hat Display';
+    src: local('Red Hat Display'),
+    url(${RedHatDisplay}) format('woff');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Reem Kufi';
+    src: local('Reem Kufi'),
+    url(${ReemKufi}) format('woff');
+    font-weight: 300;
+    font-style: normal;
+  }
 
   *, *::before, *::after {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
   }
 
   html {
     font-size: 62.5%;
+    overflow-y: scroll;
   }
 
   body {
     font-family: 'Red Hat Display', sans-serif;
     font-size: 1.6rem;
-    font-family: "Arial";
   }
 `;
 

@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import IcoButton from 'components/atoms/IcoButton/IcoButton';
 import { Heart } from '@styled-icons/boxicons-regular/Heart';
 import { Heart as FilledHeart } from '@styled-icons/boxicons-solid/Heart';
+import { connect } from 'react-redux';
+import { addFavorite as addToFavorites, removeFavorite as removeFromFavorites } from 'actions';
 
-const Wrapper = styled.section`
+const Wrapper = styled.div`
   position: relative;
-  background-color: red;
-  margin: 10px;
   height: 280px;
-  max-width: 460px;
+  width: 100%;
   border-radius: 10px;
   overflow: hidden;
   background-image: ${({ imageUrl }) => imageUrl && css`url('${imageUrl}')`};
@@ -35,23 +36,73 @@ const BottomBar = styled.div`
   padding: 5px 10px;
 `;
 
-const Card = ({ autor, isFavorite, imageUrl }) => (
-  <Wrapper imageUrl={imageUrl}>
-    <ButtonWrapper>
-      <IcoButton icon={isFavorite ? FilledHeart : Heart} />
-    </ButtonWrapper>
-    <BottomBar>{autor}</BottomBar>
-  </Wrapper>
-);
+const Tags = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: ${({ theme }) => theme.colors.white};
+  border-radius: 10px;
+  padding: 5px 10px;
+`;
+
+const Card = ({ card, favorites, addFavorite, removeFavorite }) => {
+  const { id, imageUrl, autor, tags } = card;
+  const location = useLocation();
+  const isFavorite = favorites.some((item) => item.id === id);
+
+  return (
+    <Wrapper imageUrl={imageUrl}>
+      {/* eslint-disable-next-line react/prop-types */}
+      {location.pathname === '/favorites' && <Tags>{tags.join(', ')}</Tags>}
+      <ButtonWrapper>
+        <IcoButton
+          icon={isFavorite ? FilledHeart : Heart}
+          onClick={() => {
+            if (isFavorite) {
+              // eslint-disable-next-line no-alert
+              if (window.confirm('Are you sure?')) removeFavorite(id);
+            } else addFavorite(card);
+          }}
+        />
+      </ButtonWrapper>
+      <BottomBar>{autor}</BottomBar>
+    </Wrapper>
+  );
+};
 
 Card.propTypes = {
-  autor: PropTypes.string.isRequired,
-  isFavorite: PropTypes.bool,
-  imageUrl: PropTypes.string.isRequired,
+  card: PropTypes.objectOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      imageUrl: PropTypes.string,
+      fullsizeUrl: PropTypes.string,
+      autor: PropTypes.string,
+      tags: PropTypes.array,
+    }),
+  ).isRequired,
+  favorites: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      imageUrl: PropTypes.string,
+      fullsizeUrl: PropTypes.string,
+      autor: PropTypes.string,
+      tags: PropTypes.array,
+    }),
+  ),
+  addFavorite: PropTypes.func.isRequired,
+  removeFavorite: PropTypes.func.isRequired,
 };
 
 Card.defaultProps = {
-  isFavorite: false,
+  favorites: [],
 };
 
-export default Card;
+const mapStateToProps = ({ favorites }) => ({ favorites });
+const mapDispatchToProps = (dispatch) => ({
+  addFavorite: (newFavorite) => dispatch(addToFavorites(newFavorite)),
+  removeFavorite: (imageUrl) => dispatch(removeFromFavorites(imageUrl)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);
